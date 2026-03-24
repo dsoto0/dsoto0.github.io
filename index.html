@@ -2,15 +2,41 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>Mapa de Conflictos en África</title>
+  <title>Conflictos en África</title>
+
   <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
   <link href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" rel="stylesheet" />
+
   <style>
-    body { margin:0; }
-    #map { width:100%; height:100vh; }
+    body { margin:0; font-family: Arial; }
+    #map { width:100%; height:90vh; }
+
+    #controls {
+      background:#111;
+      color:white;
+      padding:10px;
+    }
+
+    select, input {
+      margin-left:10px;
+    }
   </style>
 </head>
+
 <body>
+
+<div id="controls">
+  Tipo:
+  <select id="filtro">
+    <option value="todos">Todos</option>
+    <option value="guerra">Guerra</option>
+    <option value="terrorismo">Terrorismo</option>
+  </select>
+
+  Año:
+  <input type="range" id="year" min="2020" max="2023" value="2023">
+  <span id="yearLabel">2023</span>
+</div>
 
 <div id="map"></div>
 
@@ -22,22 +48,48 @@ const map = new maplibregl.Map({
   zoom: 2
 });
 
-// DATOS (puedes ampliar)
-const eventos = [
-  {lat:14.6, lon:-4.0, tipo:"terrorismo"},
-  {lat:11.5, lon:13.0, tipo:"terrorismo"},
-  {lat:2.0, lon:45.3, tipo:"terrorismo"},
-  {lat:13.5, lon:39.5, tipo:"guerra"},
-  {lat:15.6, lon:32.5, tipo:"guerra"}
-];
+let datos = [];
+let markers = [];
 
-eventos.forEach(e => {
-  new maplibregl.Marker({
-    color: e.tipo === "guerra" ? "red" : "orange"
-  })
-  .setLngLat([e.lon, e.lat])
-  .addTo(map);
+fetch('data.json')
+.then(res => res.json())
+.then(data => {
+  datos = data;
+  actualizar();
 });
+
+document.getElementById("filtro").addEventListener("change", actualizar);
+
+document.getElementById("year").addEventListener("input", e => {
+  document.getElementById("yearLabel").innerText = e.target.value;
+  actualizar();
+});
+
+function actualizar() {
+  markers.forEach(m => m.remove());
+  markers = [];
+
+  const tipo = document.getElementById("filtro").value;
+  const year = document.getElementById("year").value;
+
+  datos.forEach(e => {
+    const eventYear = new Date(e.fecha).getFullYear();
+
+    if ((tipo === "todos" || e.tipo === tipo) && eventYear <= year) {
+
+      const marker = new maplibregl.Marker({
+        color: e.tipo === "guerra" ? "red" : "orange"
+      })
+      .setLngLat([e.lon, e.lat])
+      .setPopup(new maplibregl.Popup().setHTML(
+        `<b>${e.pais}</b><br>${e.tipo}<br>${e.actor}<br>${e.fecha}`
+      ))
+      .addTo(map);
+
+      markers.push(marker);
+    }
+  });
+}
 </script>
 
 </body>
