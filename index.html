@@ -4,80 +4,68 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Africa Conflicts Map</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        /* Add your custom styles here */
-    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
 </head>
 <body>
     <header>
-        <h1>Africa Conflicts Map</h1>
+        <h1>Africa Conflicts</h1>
+        <nav>
+            <ul>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#news">News</a></li>
+                <li><a href="#chart">Evolution Chart</a></li>
+                <li><a href="#map">Interactive Map</a></li>
+                <li><a href="#statistics">Statistics</a></li>
+                <li><a href="#timeline">Historical Timeline</a></li>
+            </ul>
+        </nav>
     </header>
     <main>
         <section id="gallery">
             <h2>Image Gallery</h2>
-            <div>
-                <img src="image1.jpg" alt="Conflict Image 1" />
-                <img src="image2.jpg" alt="Conflict Image 2" />
-                <!-- Add more images as needed -->
+            <div class="gallery">
+                <!-- Gallery images go here -->
+                <div class="modal">
+                    <span class="close">&times;</span>
+                    <img class="modal-content" id="img01">
+                    <div id="caption"></div>
+                </div>
             </div>
         </section>
         <section id="news">
-            <h2>News Links</h2>
-            <ul>
-                <li><a href="newslink1.com">News Link 1</a></li>
-                <li><a href="newslink2.com">News Link 2</a></li>
-                <!-- Add more news links as needed -->
-            </ul>
+            <h2>Latest News</h2>
+            <div class="news-links">
+                <!-- News links go here -->
+            </div>
         </section>
-        <section id="evolution-charts">
-            <h2>Evolution Charts by Year</h2>
+        <section id="chart">
+            <h2>Evolution Chart</h2>
             <canvas id="evolutionChart"></canvas>
         </section>
-        <section id="heatmap">
-            <h2>Heatmap Visualization</h2>
-            <button id="toggleHeatmap">Toggle Heatmap</button>
+        <section id="map">
+            <h2>Interactive Map</h2>
             <div id="map" style="height: 500px;"></div>
         </section>
+        <section id="statistics">
+            <h2>Real-time Statistics</h2>
+            <div class="statistics"></div>
+        </section>
         <section id="timeline">
-            <h2>Historical Timeline Player</h2>
-            <button id="playPause">Play</button>
-            <div id="timelinePlayer"></div>
+            <h2>Historical Timeline</h2>
+            <div class="timeline-player">
+                <button id="play">Play</button>
+                <button id="pause">Pause</button>
+                <div class="timeline"></div>
+            </div>
         </section>
     </main>
-    <script>
-        // Initialize the map
-        var map = L.map('map').setView([0, 20], 2);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-        }).addTo(map);
-
-        // Example data for evolution chart
-        var ctx = document.getElementById('evolutionChart').getContext('2d');
-        var evolutionChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ['2010', '2011', '2012'], // Add more years
-                datasets: [{
-                    label: 'Conflict Instances',
-                    data: [12, 19, 3], // Example data
-                    fill: false,
-                    borderColor: 'rgb(75, 192, 192)',
-                    tension: 0.1
-                }]
-            },
-            options: {}
-        });
-
-        document.getElementById('toggleHeatmap').onclick = function() {
-            // Logic to toggle heatmap display
-        };
-
-        document.getElementById('playPause').onclick = function() {
-            // Toggle play/pause functionality for timeline
-        };
-    </script>
+    <footer>
+        <p>&copy; 2026 dsoto0</p>
+    </footer>
+    <script src="scripts.js"></script>
 </body>
 </html>
