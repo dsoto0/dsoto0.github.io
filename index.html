@@ -1,95 +1,83 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mapa de Conflictos en África</title>
-    
-    <!-- Leaflet CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
-    
-    <!-- Estilos personalizados -->
-    <link rel="stylesheet" href="styles.css">
+    <title>Africa Conflicts Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Add your custom styles here */
+    </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Panel lateral de filtros -->
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <h1>🗺️ Conflictos en África</h1>
-                <button class="close-sidebar" id="closeSidebar">✕</button>
+    <header>
+        <h1>Africa Conflicts Map</h1>
+    </header>
+    <main>
+        <section id="gallery">
+            <h2>Image Gallery</h2>
+            <div>
+                <img src="image1.jpg" alt="Conflict Image 1" />
+                <img src="image2.jpg" alt="Conflict Image 2" />
+                <!-- Add more images as needed -->
             </div>
-            
-            <div class="filters">
-                <!-- Filtro por tipo de conflicto -->
-                <div class="filter-group">
-                    <label for="tipoConflicto">Tipo de Conflicto:</label>
-                    <select id="tipoConflicto" multiple>
-                        <option value="">-- Todos --</option>
-                        <option value="Terrorismo">Terrorismo</option>
-                        <option value="Guerra">Guerra</option>
-                        <option value="Disturbio Civil">Disturbio Civil</option>
-                        <option value="Insurgencia">Insurgencia</option>
-                        <option value="Conflicto Regional">Conflicto Regional</option>
-                    </select>
-                </div>
-                
-                <!-- Filtro por año -->
-                <div class="filter-group">
-                    <label for="annoInicio">Año Inicio (desde):</label>
-                    <input type="number" id="annoInicio" min="1950" max="2026" placeholder="Ej: 2000">
-                </div>
-                
-                <div class="filter-group">
-                    <label for="annoFin">Año Fin (hasta):</label>
-                    <input type="number" id="annoFin" min="1950" max="2026" placeholder="Ej: 2026">
-                </div>
-                
-                <!-- Filtro por región -->
-                <div class="filter-group">
-                    <label for="region">Región:</label>
-                    <select id="region" multiple>
-                        <option value="">-- Todas --</option>
-                        <option value="Norte">Norte</option>
-                        <option value="Sur">Sur</option>
-                        <option value="Este">Este</option>
-                        <option value="Oeste">Oeste</option>
-                        <option value="Centro">Centro</option>
-                    </select>
-                </div>
-                
-                <!-- Botones de control -->
-                <div class="filter-buttons">
-                    <button id="aplicarFiltros" class="btn btn-primary">Aplicar Filtros</button>
-                    <button id="limpiarFiltros" class="btn btn-secondary">Limpiar</button>
-                </div>
-                
-                <!-- Información de resultados -->
-                <div class="results-info">
-                    <p>Conflictos mostrados: <strong id="conflictCount">0</strong></p>
-                </div>
-                
-                <!-- Lista de conflictos -->
-                <div class="conflicts-list">
-                    <h3>Conflictos Activos</h3>
-                    <div id="conflictsList"></div>
-                </div>
-            </div>
-        </aside>
-        
-        <!-- Botón para abrir sidebar en móviles -->
-        <button class="toggle-sidebar" id="toggleSidebar">☰ Filtros</button>
-        
-        <!-- Mapa -->
-        <main class="main-content">
-            <div id="map"></div>
-        </main>
-    </div>
-    
-    <!-- Leaflet JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-    
-    <!-- Script personalizado -->
-    <script src="script.js"></script>
+        </section>
+        <section id="news">
+            <h2>News Links</h2>
+            <ul>
+                <li><a href="newslink1.com">News Link 1</a></li>
+                <li><a href="newslink2.com">News Link 2</a></li>
+                <!-- Add more news links as needed -->
+            </ul>
+        </section>
+        <section id="evolution-charts">
+            <h2>Evolution Charts by Year</h2>
+            <canvas id="evolutionChart"></canvas>
+        </section>
+        <section id="heatmap">
+            <h2>Heatmap Visualization</h2>
+            <button id="toggleHeatmap">Toggle Heatmap</button>
+            <div id="map" style="height: 500px;"></div>
+        </section>
+        <section id="timeline">
+            <h2>Historical Timeline Player</h2>
+            <button id="playPause">Play</button>
+            <div id="timelinePlayer"></div>
+        </section>
+    </main>
+    <script>
+        // Initialize the map
+        var map = L.map('map').setView([0, 20], 2);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+        }).addTo(map);
+
+        // Example data for evolution chart
+        var ctx = document.getElementById('evolutionChart').getContext('2d');
+        var evolutionChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['2010', '2011', '2012'], // Add more years
+                datasets: [{
+                    label: 'Conflict Instances',
+                    data: [12, 19, 3], // Example data
+                    fill: false,
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1
+                }]
+            },
+            options: {}
+        });
+
+        document.getElementById('toggleHeatmap').onclick = function() {
+            // Logic to toggle heatmap display
+        };
+
+        document.getElementById('playPause').onclick = function() {
+            // Toggle play/pause functionality for timeline
+        };
+    </script>
 </body>
 </html>
