@@ -1,7 +1,1 @@
-[
-  {"pais":"Mali","fecha":"2022-05-12","tipo":"terrorismo","actor":"JNIM","lat":14.6,"lon":-4.0,"intensidad":5},
-  {"pais":"Nigeria","fecha":"2021-08-03","tipo":"terrorismo","actor":"Boko Haram","lat":11.5,"lon":13.0,"intensidad":8},
-  {"pais":"Somalia","fecha":"2023-01-15","tipo":"terrorismo","actor":"Al-Shabaab","lat":2.0,"lon":45.3,"intensidad":7},
-  {"pais":"Etiopia","fecha":"2020-11-04","tipo":"guerra","actor":"Tigray","lat":13.5,"lon":39.5,"intensidad":9},
-  {"pais":"Sudan","fecha":"2023-04-20","tipo":"guerra","actor":"RSF","lat":15.6,"lon":32.5,"intensidad":10}
-]
+[{"country":"Nigeria","region":"West Africa","conflict_type":"Terrorism","dates":"2009-Present","description":"Conflict involving Boko Haram and other groups in Nigeria."},{"country":"South Sudan","region":"East Africa","conflict_type":"Civil War","dates":"2013-Present","description":"Ongoing civil conflict between various factions in South Sudan."},{"country":"Ethiopia","region":"Horn of Africa","conflict_type":"Ethnic Violence","dates":"2018-Present","description":"Ethnic tensions leading to violence, particularly in the Tigray region."}]
