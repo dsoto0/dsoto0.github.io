@@ -1,65 +1,95 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Map</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <link rel="stylesheet" href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css" />
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-        #map {
-            height: 100vh;
-            width: 75%;
-            float: right;
-        }
-        #sidebar {
-            height: 100vh;
-            width: 25%;
-            position: fixed;
-            background: white;
-            overflow-y: auto;
-            padding: 10px;
-            box-shadow: 2px 0 5px rgba(0,0,0,0.5);
-        }
-        @media (max-width: 768px) {
-            #map {
-                width: 100%;
-                height: 70vh;
-                float: none;
-            }
-            #sidebar {
-                height: auto;
-                width: 100%;
-                position: static;
-            }
-        }
-    </style>
+    <title>Mapa de Conflictos en África</title>
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+    
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="sidebar">
-        <h1>Map Sidebar</h1>
-        <p>Interact with the map using the options provided here.</p>
-        <!-- Add sidebar content here -->
+    <div class="container">
+        <!-- Panel lateral de filtros -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1>🗺️ Conflictos en África</h1>
+                <button class="close-sidebar" id="closeSidebar">✕</button>
+            </div>
+            
+            <div class="filters">
+                <!-- Filtro por tipo de conflicto -->
+                <div class="filter-group">
+                    <label for="tipoConflicto">Tipo de Conflicto:</label>
+                    <select id="tipoConflicto" multiple>
+                        <option value="">-- Todos --</option>
+                        <option value="Terrorismo">Terrorismo</option>
+                        <option value="Guerra">Guerra</option>
+                        <option value="Disturbio Civil">Disturbio Civil</option>
+                        <option value="Insurgencia">Insurgencia</option>
+                        <option value="Conflicto Regional">Conflicto Regional</option>
+                    </select>
+                </div>
+                
+                <!-- Filtro por año -->
+                <div class="filter-group">
+                    <label for="annoInicio">Año Inicio (desde):</label>
+                    <input type="number" id="annoInicio" min="1950" max="2026" placeholder="Ej: 2000">
+                </div>
+                
+                <div class="filter-group">
+                    <label for="annoFin">Año Fin (hasta):</label>
+                    <input type="number" id="annoFin" min="1950" max="2026" placeholder="Ej: 2026">
+                </div>
+                
+                <!-- Filtro por región -->
+                <div class="filter-group">
+                    <label for="region">Región:</label>
+                    <select id="region" multiple>
+                        <option value="">-- Todas --</option>
+                        <option value="Norte">Norte</option>
+                        <option value="Sur">Sur</option>
+                        <option value="Este">Este</option>
+                        <option value="Oeste">Oeste</option>
+                        <option value="Centro">Centro</option>
+                    </select>
+                </div>
+                
+                <!-- Botones de control -->
+                <div class="filter-buttons">
+                    <button id="aplicarFiltros" class="btn btn-primary">Aplicar Filtros</button>
+                    <button id="limpiarFiltros" class="btn btn-secondary">Limpiar</button>
+                </div>
+                
+                <!-- Información de resultados -->
+                <div class="results-info">
+                    <p>Conflictos mostrados: <strong id="conflictCount">0</strong></p>
+                </div>
+                
+                <!-- Lista de conflictos -->
+                <div class="conflicts-list">
+                    <h3>Conflictos Activos</h3>
+                    <div id="conflictsList"></div>
+                </div>
+            </div>
+        </aside>
+        
+        <!-- Botón para abrir sidebar en móviles -->
+        <button class="toggle-sidebar" id="toggleSidebar">☰ Filtros</button>
+        
+        <!-- Mapa -->
+        <main class="main-content">
+            <div id="map"></div>
+        </main>
     </div>
-    <div id="map"></div>
-
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script src="https://unpkg.com/maplibre-gl/dist/maplibre-gl.js"></script>
-    <script>
-        var map = L.map('map').setView([0, 0], 2);
-
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '© OpenStreetMap'
-        }).addTo(map);
-
-        // Example of adding a marker
-        var marker = L.marker([51.5, -0.09]).addTo(map);
-        marker.bindPopup('<b>Hello world!</b><br>I am a popup.').openPopup();
-    </script>
+    
+    <!-- Leaflet JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+    
+    <!-- Script personalizado -->
+    <script src="script.js"></script>
 </body>
 </html>
